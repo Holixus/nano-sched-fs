@@ -1,7 +1,7 @@
 {
-  "name": "nano-sched-file",
-  "version": "1.0.2",
-  "description": "File operations nano-sched plugin",
+  "name": "nano-sched-fs",
+  "version": "1.0.0",
+  "description": "Files/folders operations nano-sched plugin",
   "main": "index.js",
   "scripts": {
     "test": "mocha --reporter spec -u tdd",
@@ -25,13 +25,13 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Holixus/nano-sched-file.git"
+    "url": "git+https://github.com/Holixus/nano-sched-fs.git"
   },
-  "keywords": [],
+  "keywords": [ 'nano', 'sched-fs' ],
   "author": "Vladimir Antonov <me@holix.ru>",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/Holixus/nano-sched-file/issues"
+    "url": "https://github.com/Holixus/nano-sched-fs/issues"
   },
-  "homepage": "https://github.com/Holixus/nano-sched-file#readme"
+  "homepage": "https://github.com/Holixus/nano-sched-fs#readme"
 }
