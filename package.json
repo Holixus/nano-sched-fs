@@ -27,7 +27,7 @@
     "type": "git",
     "url": "git+https://github.com/Holixus/nano-sched-fs.git"
   },
-  "keywords": [ 'nano', 'sched-fs' ],
+  "keywords": [ "nano", "sched-fs" ],
   "author": "Vladimir Antonov <me@holix.ru>",
   "license": "MIT",
   "bugs": {
