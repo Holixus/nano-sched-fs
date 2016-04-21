@@ -1,21 +1,20 @@
 "use strict";
 
 var fs = require('nano-fs'),
-    AjsFS = require('nano-ajsfs'),
-    DirFS = require('nano-dirfs'),
+    newUniFS = require('nano-unifs'),
     Promise = require('nano-promise'),
     Path = require('path');
 
 function get_source(data) {
 	var opts = data.opts,
 	    folder = data.sources_folder || opts.sources_folder;
-	return new (typeof folder === 'string' ? DirFS : AsjFS)(folder);
+	return newUniFS(folder);
 }
 
 function get_dist(data) {
 	var opts = data.opts,
 	    folder = data.dist_folder || opts.dist_folder;
-	return new (typeof folder === 'string' ? DirFS : AsjFS)(folder);
+	return newUniFS(folder);
 }
 
 

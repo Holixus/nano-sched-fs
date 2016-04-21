@@ -9,8 +9,7 @@
     "test-travis": "istanbul cover node_modules/mocha/bin/_mocha --report lcovonly -- --reporter dot -u tdd"
   },
   "dependencies": {
-    "nano-dirfs": "1",
-    "nano-ajsfs": "1",
+    "nano-unifs": "1",
     "nano-promise": "1"
   },
   "devDependencies": {
