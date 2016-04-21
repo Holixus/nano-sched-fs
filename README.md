@@ -16,26 +16,26 @@ Files/folders operations nano-sched plugin
 
 ### data object
 
-* opts `<Object>` options object
-  * sources_folder `<String>`
-  * dist_folder `<String>`
-* name `<String>`
-* dest `<String>` (Optional)
-* encoding `<String>`
-* content `<any>`
+* opts `{Object}` options object
+  * sources_folder `{String}`
+  * dist_folder `{String}`
+* name `{String}`
+* dest `{String}` (Optional)
+* encoding `{String}`
+* content `{any}`
 
 
 ### load-text (log, data)
 
-Load file from `<options.sources_folder>/<data.name>` to the data.content with `<data.encoding>='utf8'`.
+Load file from `{options.sources_folder}/{data.name}` to the `data.content` with `{data.encoding}='utf8'`.
 
 ### load-bin (log, data)
 
-Load file from `<options.sources_folder>/<data.name>` to the data.content with `<data.encoding>=null`.
+Load file from `{options.sources_folder}/{data.name}` to the `data.content` with `{data.encoding}=null`.
 
 ### load-json (log, data)
 
-Load file from `<options.sources_folder>/<data.name>` and parse to the data.content with `<data.encoding>='json'`.
+Load file from `{options.sources_folder}/{data.name}` and parse to the `data.content` with `{data.encoding}='json'`.
 
 ### dont-overwrite (log, data)
 
@@ -43,7 +43,7 @@ Will cancels job if destination file exists.
 
 ### rename (log, data)
 
-Generate destination file name by `<data.dest>` template. The template can contains of shortcuts for
+Generate destination file name by `{data.dest}` template. The template can contains of shortcuts for
 sources file name parts:
 * \1 -- path to source name
 * \2 -- name of file
@@ -55,29 +55,29 @@ For example, for `data.name = 'blah/foo.bar'` and `data.dest = 'folder/\2\3'` wi
 
 ### save (log, data)
 
-Save data.content to `<options.dist_folder>/<data.dest || data.name>` with encoding `<data.encoding>`('utf8','json',null).
+Save data.content to `{options.dist_folder}/{data.dest || data.name}` with encoding `{data.encoding}`('utf8','json',null).
 
 ### copy (log, data)
 
-Copy file from `<options.sources_folder>/<data.name>` to `<options.dist_folder>/<data.dest || data.name>`.
+Copy file from `{options.sources_folder}/{data.name}` to `{options.dist_folder}/{data.dest || data.name}`.
 
 
 ## Folder operations
 
 ### data object
 
-* opts `<Object>` options object
-  * sources_folder `<String>`
-  * dist_folder `<String>`
+* opts `{Object}` options object
+  * sources_folder `{String}`
+  * dist_folder `{String}`
 
 
 ### dist-clean (log, data)
 
-Creates or cleans `<options.dist_folder>`.
+Creates or cleans `{options.dist_folder}`.
 
 ### list-files (log, data)
 
-Returns an array of all files pathes of `<options.source_folder>`in `data.file`.
+Returns an array of all files pathes of `{options.source_folder}`in `data.file`.
 
 
 
