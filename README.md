@@ -71,9 +71,15 @@ Copy file from `{options.sources_folder}/{data.name}` to `{options.dist_folder}/
   * dist_folder `{String}`
 
 
-### dist-clean (log, data)
+### clean-dist (log, data)
 
 Creates or cleans `{options.dist_folder}`.
+
+
+### make-dist (log, data)
+
+Creates(if necessary) `{options.dist_folder}`.
+
 
 ### list-files (log, data)
 

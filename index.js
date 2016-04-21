@@ -113,7 +113,12 @@ copy: function (job, data, done) {
 	});
 },
 
-'dist-clean': function (log, data) {
+'make-dist': function (log, data) {
+	var fs = get_dist(data);
+	return fs.mkpath('');
+},
+
+'clean-dist': function (log, data) {
 	var fs = get_dist(data);
 	return fs.empty('')
 		.catch(function (e) {

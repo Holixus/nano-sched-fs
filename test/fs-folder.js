@@ -104,10 +104,10 @@ function fsinit(log, data) {
 		});
 }
 
-suite('dist-clean', function () {
+suite('clean-dist', function () {
 	test('create dist-folder', function (done) {
 
-		var log = new Logger('dist-clean', job),
+		var log = new Logger('clean-dist', job),
 		    data = {
 					opts: opts
 				};
@@ -115,7 +115,7 @@ suite('dist-clean', function () {
 		fs.remove(opts.dist_folder)
 			.catch(function () {})
 			.then(function () { return [log, data]; })
-			.spread(plugin['dist-clean'])
+			.spread(plugin['clean-dist'])
 			.then(function () {
 				return fs.readdir(opts.dist_folder).then(function (list) {
 					assert.strictEqual(list.length, 0);
@@ -126,7 +126,7 @@ suite('dist-clean', function () {
 
 	test('empty dist-folder', function (done) {
 
-		var log = new Logger('dist-clean', job),
+		var log = new Logger('clean-dist', job),
 		    data = {
 					opts: opts
 				};
@@ -138,7 +138,7 @@ suite('dist-clean', function () {
 					return [ log, data ];
 				});
 			})
-			.spread(plugin['dist-clean'])
+			.spread(plugin['clean-dist'])
 			.then(function () {
 				return fs.readdir(opts.dist_folder).then(function (list) {
 					assert.strictEqual(list.length, 0);
@@ -149,6 +149,28 @@ suite('dist-clean', function () {
 					console.log(log.acc);
 				done(e);
 			});
+	});
+});
+
+
+suite('make-dist', function () {
+	test('create dist-folder', function (done) {
+
+		var log = new Logger('make-dist', job),
+		    data = {
+					opts: opts
+				};
+
+		fs.remove(opts.dist_folder)
+			.catch(function () {})
+			.then(function () { return [log, data]; })
+			.spread(plugin['make-dist'])
+			.then(function () {
+				return fs.readdir(opts.dist_folder).then(function (list) {
+					assert.strictEqual(list.length, 0);
+					done();
+				});
+			}).catch(done);
 	});
 });
 
