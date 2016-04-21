@@ -64,7 +64,7 @@ function createFiles(root, list) {
 	}));
 }
 
-var file = require('../index.js').file,
+var plugin = require('../index.js'),
 	opts = {
 			dist_folder: __dirname+'/dist',
 			sources_folder: __dirname+'/src'
@@ -90,17 +90,17 @@ function fsinit(log, data) {
 		});
 }
 
-suite('file.load', function () {
+suite('load-text', function () {
 	test('1 - load', function (done) {
 
-		var log = new Logger('load', job),
+		var log = new Logger('load-text', job),
 		    data = {
 					name: '1.txt',
 					opts: opts
 				};
 
 		fsinit(log, data)
-			.spread(file.load)
+			.spread(plugin['load-text'])
 			.then(function () {
 				return fs.readFile(job.sched.opts.sources_folder+'/'+data.name, 'utf8').then(function (text) {
 					assert.strictEqual(data.content, text);
@@ -109,16 +109,16 @@ suite('file.load', function () {
 			}).catch(done);
 	});
 
-	test('1 - load', function (done) {
+	test('1 - load-text', function (done) {
 
-		var log = new Logger('load', job),
+		var log = new Logger('load-text', job),
 		    data = {
 					name: '1.txt',
 					opts: opts
 				};
 
 		fsinit(log, data)
-			.spread(file.load)
+			.spread(plugin['load-text'])
 			.then(function () {
 				return fs.readFile(job.sched.opts.sources_folder+'/'+data.name, 'utf8').then(function (text) {
 					assert.strictEqual(data.content, text);
@@ -127,16 +127,16 @@ suite('file.load', function () {
 			}).catch(done);
 	});
 
-	test('2 - load of apsent file', function (done) {
+	test('2 - load-text of absent file', function (done) {
 
-		var log = new Logger('load', job),
+		var log = new Logger('load-text', job),
 		    data = {
 					name: '2.txt',
 					opts: opts
 				};
 
 		fsinit(log, data)
-			.spread(file.load)
+			.spread(plugin['load-text'])
 			.then(function () {
 				throw Error('not failed');
 			}, function (err) {
@@ -147,7 +147,7 @@ suite('file.load', function () {
 
 });
 
-suite('file.load-bin', function () {
+suite('load-bin', function () {
 	test('1 - load', function (done) {
 
 		var log = new Logger('load-bin', job),
@@ -157,7 +157,7 @@ suite('file.load-bin', function () {
 				};
 
 		fsinit(log, data)
-			.spread(file['load-bin'])
+			.spread(plugin['load-bin'])
 			.then(function () {
 				return fs.readFile(job.sched.opts.sources_folder+'/'+data.name).then(function (bin) {
 					assert.deepStrictEqual(data.content, bin);
@@ -166,7 +166,7 @@ suite('file.load-bin', function () {
 			}).catch(done);
 	});
 
-	test('2 - load of apsent file', function (done) {
+	test('2 - load-text of absent file', function (done) {
 
 		var log = new Logger('load', job),
 		    data = {
@@ -175,7 +175,7 @@ suite('file.load-bin', function () {
 				};
 
 		fsinit(log, data)
-			.spread(file.load)
+			.spread(plugin['load-bin'])
 			.then(function () {
 				throw Error('not failed');
 			}, function (err) {
@@ -186,7 +186,7 @@ suite('file.load-bin', function () {
 
 });
 
-suite('file.load-json', function () {
+suite('load-json', function () {
 	test('1 - load', function (done) {
 
 		var log = new Logger('load-json', job),
@@ -203,7 +203,7 @@ suite('file.load-json', function () {
 						return [log, data];
 					});
 			})
-			.spread(file['load-json'])
+			.spread(plugin['load-json'])
 			.then(function () {
 				assert.deepStrictEqual(data.content, eval('('+data.test+')'));
 				done();
@@ -226,7 +226,7 @@ suite('file.load-json', function () {
 						return [log, data];
 					});
 			})
-			.spread(file['load-json'])
+			.spread(plugin['load-json'])
 			.then(function () {
 				throw Error('not failed');
 			}, function (e) {
@@ -235,7 +235,7 @@ suite('file.load-json', function () {
 	});
 });
 
-suite('file.copy', function () {
+suite('copy', function () {
 	test('1 - copy', function (done) {
 
 		var log = new Logger('copy', job),
@@ -245,7 +245,7 @@ suite('file.copy', function () {
 				};
 
 		fsinit(log, data)
-			.spread(file.copy)
+			.spread(plugin.copy)
 			.then(function () {
 				return Promise.all([
 						fs.readFile(opts.sources_folder+'/'+data.name, 'utf8'),
@@ -266,7 +266,7 @@ suite('file.copy', function () {
 				};
 
 		fsinit(log, data)
-			.spread(file.copy)
+			.spread(plugin.copy)
 			.then(function () {
 				throw Error('not failed');
 			}, function (err) {
@@ -277,7 +277,7 @@ suite('file.copy', function () {
 
 });
 
-suite('file.save', function () {
+suite('save', function () {
 	test('1.1 - save', function (done) {
 		var log = new Logger('save', job),
 		    data = {
@@ -288,7 +288,7 @@ suite('file.save', function () {
 				};
 
 		fsinit(log, data)
-			.spread(file.save)
+			.spread(plugin.save)
 			.then(function () {
 				return Promise.all([
 						fs.readFile(opts.dist_folder+'/'+data.name, 'utf8')]);
@@ -310,7 +310,7 @@ suite('file.save', function () {
 				};
 
 		fsinit(log, data)
-			.spread(file.save)
+			.spread(plugin.save)
 			.then(function () {
 				return Promise.all([
 						fs.readFile(opts.dist_folder+'/'+data.dest, 'utf8')]);
@@ -331,7 +331,7 @@ suite('file.save', function () {
 				};
 
 		fsinit(log, data)
-			.spread(file.save)
+			.spread(plugin.save)
 			.then(function () {
 				return Promise.all([
 						fs.readFile(opts.dist_folder+'/'+data.name, null)]);
@@ -352,7 +352,7 @@ suite('file.save', function () {
 				};
 
 		fsinit(log, data)
-			.spread(file.save)
+			.spread(plugin.save)
 			.then(function () {
 				return Promise.all([
 						fs.readFile(opts.dist_folder+'/'+data.name, null)]);
@@ -373,7 +373,7 @@ suite('file.save', function () {
 				};
 
 		fsinit(log, data)
-			.spread(file.save)
+			.spread(plugin.save)
 			.then(function () {
 				throw Error('not failed');
 			}, function (err) {
@@ -392,7 +392,7 @@ suite('file.save', function () {
 				};
 
 		fsinit(log, data)
-			.spread(file.save)
+			.spread(plugin.save)
 			.then(function () {
 				throw Error('not failed');
 			}, function (err) {
@@ -410,10 +410,7 @@ suite('file.save', function () {
 				};
 
 		Promise.resolve(log, data)
-			.then(file.save)
-			.then(function () {
-				return file.save(log, data);
-			})
+			.then(plugin.save)
 			.then(function () {
 				return Promise.all([
 						fs.readFile(opts.dist_folder+'/'+data.name, 'utf8')]);
@@ -434,7 +431,7 @@ suite('file.save', function () {
 				};
 
 		fsinit(log, data)
-			.spread(file.save)
+			.spread(plugin.save)
 			.then(function () {
 				throw Error('not failed');
 			}, function (err) {
@@ -443,7 +440,7 @@ suite('file.save', function () {
 	});
 });
 
-suite('file.dont-overwrite', function () {
+suite('dont-overwrite', function () {
 	test('1 - save', function (done) {
 		var log = new Logger('dont-overwrite', job),
 		    data = {
@@ -453,7 +450,7 @@ suite('file.dont-overwrite', function () {
 				};
 
 		fsinit(log, data)
-			.spread(file['dont-overwrite'])
+			.spread(plugin['dont-overwrite'])
 			.then(function () {
 				done()
 			}).catch(done);
@@ -468,7 +465,7 @@ suite('file.dont-overwrite', function () {
 				};
 
 		fsinit(log, data)
-			.spread(file['dont-overwrite'])
+			.spread(plugin['dont-overwrite'])
 			.then(function () {
 				throw Error('not failed');
 			}, function (err) {
@@ -487,7 +484,7 @@ suite('file.dont-overwrite', function () {
 				};
 
 		fsinit(log, data)
-			.spread(file['dont-overwrite'])
+			.spread(plugin['dont-overwrite'])
 			.then(function () {
 				throw Error('not cancelled');
 			}, function (err) {
@@ -497,7 +494,7 @@ suite('file.dont-overwrite', function () {
 	});
 });
 
-suite('file.load-dist', function () {
+/*suite('file.load-dist', function () {
 	test('1 - load', function (done) {
 
 		var log = new Logger('load-dist', job),
@@ -534,9 +531,9 @@ suite('file.load-dist', function () {
 			}).catch(done);
 	});
 
-});
+});*/
 
-suite('file.rename', function () {
+suite('rename', function () {
 	test('1.1 - rename', function (done) {
 		var log = new Logger('rename', job),
 		    data = {
@@ -547,7 +544,7 @@ suite('file.rename', function () {
 				};
 
 		fsinit(log, data)
-			.spread(file.rename)
+			.spread(plugin.rename)
 			.then(function () {
 				assert.strictEqual(data.dest, 'not-saved.txt');
 				done();
@@ -564,7 +561,7 @@ suite('file.rename', function () {
 				};
 
 		fsinit(log, data)
-			.spread(file.rename)
+			.spread(plugin.rename)
 			.then(function () {
 				assert.strictEqual(data.dest, 'folder/saved.bak');
 				done();
@@ -581,7 +578,7 @@ suite('file.rename', function () {
 				};
 
 		fsinit(log, data)
-			.spread(file.rename)
+			.spread(plugin.rename)
 			.then(function () {
 				assert.strictEqual(data.dest, 'oo/saved.bak');
 				done();
@@ -598,7 +595,7 @@ suite('file.rename', function () {
 				};
 
 		fsinit(log, data)
-			.spread(file.rename)
+			.spread(plugin.rename)
 			.then(function () {
 				assert.strictEqual(data.dest, 'file.txt');
 				done();
@@ -614,7 +611,7 @@ suite('file.rename', function () {
 				};
 
 		fsinit(log, data)
-			.spread(file.rename)
+			.spread(plugin.rename)
 			.then(function () {
 				assert.strictEqual(data.dest, 'folder/saved.txt');
 				done();

@@ -54,7 +54,7 @@ Logger.prototype = {
 
 
 
-var folder = require('../index.js').folder,
+var plugin = require('../index.js'),
 	opts = {
 			dist_folder: __dirname+'/dist',
 			sources_folder: __dirname+'/src'
@@ -104,7 +104,7 @@ function fsinit(log, data) {
 		});
 }
 
-suite('folder.dist-clean', function () {
+suite('dist-clean', function () {
 	test('create dist-folder', function (done) {
 
 		var log = new Logger('dist-clean', job),
@@ -115,7 +115,7 @@ suite('folder.dist-clean', function () {
 		fs.remove(opts.dist_folder)
 			.catch(function () {})
 			.then(function () { return [log, data]; })
-			.spread(folder['dist-clean'])
+			.spread(plugin['dist-clean'])
 			.then(function () {
 				return fs.readdir(opts.dist_folder).then(function (list) {
 					assert.strictEqual(list.length, 0);
@@ -138,7 +138,7 @@ suite('folder.dist-clean', function () {
 					return [ log, data ];
 				});
 			})
-			.spread(folder['dist-clean'])
+			.spread(plugin['dist-clean'])
 			.then(function () {
 				return fs.readdir(opts.dist_folder).then(function (list) {
 					assert.strictEqual(list.length, 0);
@@ -153,10 +153,10 @@ suite('folder.dist-clean', function () {
 });
 
 
-suite('folder.list', function () {
-	test('list', function (done) {
+suite('list-files', function () {
+	test('list-files', function (done) {
 
-		var log = new Logger('list', job),
+		var log = new Logger('list-files', job),
 		    data = {
 					opts: {
 						dist_folder: opts.dist_folder,
@@ -165,7 +165,7 @@ suite('folder.list', function () {
 				};
 
 		fsinit(log, data)
-			.spread(folder['list'])
+			.spread(plugin['list-files'])
 			.then(function () {
 				assert.deepStrictEqual(data.files.sort(), dist_files.sort());
 				done();
