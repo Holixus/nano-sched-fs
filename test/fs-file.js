@@ -102,6 +102,7 @@ suite('load-text', function () {
 		fsinit(log, data)
 			.spread(plugin['load-text'])
 			.then(function () {
+				assert.strictEqual(data.type, 'txt')
 				return fs.readFile(job.sched.opts.sources_folder+'/'+data.name, 'utf8').then(function (text) {
 					assert.strictEqual(data.content, text);
 					done();

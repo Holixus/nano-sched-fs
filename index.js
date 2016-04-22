@@ -21,6 +21,7 @@ function get_dist(data) {
 function set_utf8(data, content) {
 	data.content = content;
 	data.encoding = 'utf8';
+	data.type = data.name.replace(/^.*\.(js|css|html|svg|jpg|png|gif|ico|ui|txt|md)$/, '$1');
 }
 
 function set_bin(data, content) {
@@ -31,6 +32,7 @@ function set_bin(data, content) {
 function set_json(data, content) {
 	data.content = JSON.parse(content);
 	data.encoding = 'json';
+	data.type = 'json';
 }
 
 module.exports = {
