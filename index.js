@@ -3,7 +3,8 @@
 var fs = require('nano-fs'),
     newUniFS = require('nano-unifs'),
     Promise = require('nano-promise'),
-    Path = require('path');
+    Path = require('path'),
+    vm = require('vm');
 
 function get_source(data) {
 	var opts = data.opts,
@@ -30,7 +31,7 @@ function set_bin(data, content) {
 }
 
 function set_json(data, content) {
-	data.content = JSON.parse(content);
+	data.content = vm.runInNewContext('('+content+')');;
 	data.encoding = 'json';
 	data.type = 'json';
 }

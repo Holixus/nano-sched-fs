@@ -5,7 +5,8 @@ var assert = require('core-assert'),
     timer = require('nano-timer'),
     Promise = require('nano-promise'),
     util = require('util'),
-    fs = require('nano-fs');
+    fs = require('nano-fs'),
+    vm = require('vm');
 
 
 /* ------------------------------------------------------------------------ */
@@ -206,7 +207,7 @@ suite('load-json', function () {
 			})
 			.spread(plugin['load-json'])
 			.then(function () {
-				assert.deepStrictEqual(data.content, eval('('+data.test+')'));
+				assert.deepEqual(data.content, vm.runInNewContext('('+data.test+')'));
 				done();
 			}).catch(done);
 	});
@@ -216,7 +217,7 @@ suite('load-json', function () {
 		var log = new Logger('load-json', job),
 		    data = {
 					name: '1.json',
-					test: '{ a: "ogo" }',
+					test: '{ a: "ogo }',
 					opts: opts
 				};
 
